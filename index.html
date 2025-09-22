@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Stephanie — Portfolio</title>
+    <meta name="description" content="Personal portfolio — projects, about, skills and contact." />
+
+    <!--
+    Clean, modern, responsive single-file portfolio.
+    - Replace placeholder text, images, and links with your content.
+    - Save this file as `index.html` and open in the browser.
+  -->
+
+    <style>
+        /* =======================
+       Variables & base styles
+       ======================= */
+        :root {
+            --bg: #0f1724;
+            /* dark slate */
+            --card: #0b1220;
+            --muted: #9aa4b2;
+            --accent: #6ee7b7;
+            /* mint */
+            --accent-2: #7dd3fc;
+            /* sky */
+            --glass: rgba(255, 255, 255, 0.04);
+            --radius: 14px;
+            --max-width: 1100px;
+            --transition: 250ms cubic-bezier(.2, .9, .2, 1);
+        }
+
+        /* Light theme overrides */
+        :root.light {
+            --bg: #f6f8fb;
+            --card: #ffffff;
+            --muted: #5b6b7a;
+            --accent: #0ea5a4;
+            --accent-2: #0284c7;
+            --glass: rgba(10, 10, 10, 0.03);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(125, 211, 252, 0.06), transparent), linear-gradient(180deg, var(--bg), #071022 120%);
+            color: #e6eef6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 28px 18px;
+        }
+
+        :root.light body {
+            color: #0b1220
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            gap: 28px;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: start;
+        }
+
+        /* Header / Nav */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        }
+
+        .brand h1 {
+            font-size: 16px;
+            margin: 0
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            align-items: center
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px;
+            border-radius: 8px
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            transform: translateY(-2px)
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .btn {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600
+        }
+
+        .btn:hover {
+            transform: translateY(-3px)
+        }
+
+        /* Mobile nav */
+        .menu-toggle {
+            display: none
+        }
+
+        @media (max-width:840px) {
+            nav {
+                display: none
+            }
+
+            .menu-toggle {
+                display: inline-flex
+            }
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 28px;
+            align-items: center;
+            padding: 28px;
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.45);
+        }
+
+        .hero .intro h2 {
+            margin: 0;
+            font-size: 28px
+        }
+
+        .hero .intro p {
+            color: var(--muted);
+            margin: 12px 0 18px;
+            line-height: 1.5
+        }
+
+        .cta {
+            display: flex;
+            gap: 12px
+        }
+
+        .cta .primary {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: #07202a;
+            padding: 10px 14px;
+            border-radius: 12px
+        }
+
+        .cta .ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 10px 14px;
+            border-radius: 12px
+        }
+
+        .portrait {
+            justify-self: end;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+            padding: 6px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .portrait img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 12px;
+            display: block
+        }
+
+        /* Sections */
+        section {
+            margin-top: 28px
+        }
+
+        .card {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 14px
+        }
+
+        /* About */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 18px;
+            align-items: center
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 12px
+        }
+
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px
+        }
+
+        .project {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform var(--transition), box-shadow var(--transition)
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 30px rgba(2, 6, 23, 0.45)
+        }
+
+        .project img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px
+        }
+
+        .project .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px
+        }
+
+        .skill {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .skill .bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .skill .bar>i {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transition: width 600ms ease
+        }
+
+        /* Contact */
+        form {
+            display: grid;
+            gap: 10px
+        }
+
+        input,
+        textarea {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: transparent;
+            color: inherit;
+            min-width: 0
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 28px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        /* Responsive adjustments */
+        @media (max-width:1100px) {
+            .hero {
+                grid-template-columns: 1fr 300px
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width:720px) {
+            .container {
+                padding: 0
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr
+            }
+
+            .portrait {
+                justify-self: center
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px
+            }
+
+            .menu-toggle {
+                display: inline-flex
+            }
+        }
+
+        /* subtle entrance animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(8px);
+            animation: fadeIn .7s ease forwards
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* small helper icons */
+        .icon {
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header>
+            <a class="brand" href="#home" aria-label="Go to home">
+                <div class="logo">YN</div>
+                <div>
+                    <h1 style="font-size:14px;margin:0">Stephanie</h1>
+                    <div style="font-size:12px;color:var(--muted)">Frontend Developer</div>
+                </div>
+            </a>
+
+            <nav aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="controls">
+                <button class="btn menu-toggle" aria-expanded="false" aria-label="Open menu" id="menuButton">☰</button>
+                <button class="btn" id="themeToggle" title="Toggle light / dark">🌓</button>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section id="home" class="hero card fade-in">
+            <div class="intro">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <h2>Hello — I'm <span
+                            style="background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;">Stephanie</span>
+                    </h2>
+                </div>
+                <p>Frontend Developer crafting clean, accessible interfaces. I build with HTML, CSS, and JavaScript —
+                    and I love turning ideas into delightful, usable products.</p>
+
+                <div class="cta">
+                    <a class="primary" href="#projects">See projects</a>
+                    <a class="ghost" href="#contact">Contact me</a>
+                </div>
+
+                <div style="margin-top:18px;color:var(--muted);font-size:13px">Based in Lebanon • Open to remote work
+                </div>
+            </div>
+
+            <div class="portrait">
+                <!-- Replace the src with your photo; keep square images for best fit -->
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&q=80&w=800&fit=crop"
+                    alt="Your portrait photo">
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="card fade-in">
+            <h3 style="margin-top:0">About me</h3>
+            <div class="about">
+                <div>
+                    <p>I'm a frontend developer with a love for clean UI and smooth UX. I enjoy building responsive web
+                        apps and experimenting with interaction design. I focus on semantic HTML, modern CSS (Flexbox &
+                        Grid), and vanilla JavaScript — while learning frameworks when a project needs them.</p>
+
+                    <p>When I'm not coding I like to dance, play music, and tinker with small hardware projects. I'm
+                        passionate about learning and collaborating — and I always aim to ship a usable MVP first, then
+                        iterate.</p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1545996124-1b7b9f33e8fe?auto=format&q=60&w=600&fit=crop"
+                        alt="A photo of me">
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="card fade-in">
+            <h3 style="margin-top:0">Projects</h3>
+            <div class="projects-grid" id="projectsGrid">
+
+                <!-- Sample project card - duplicate and edit to add more projects -->
+                <article class="project">
+                    <img src="https://images.unsplash.com/photo-1524635962361-1c31ebd23b1c?auto=format&q=60&w=1200&fit=crop"
+                        alt="Project screenshot">
+                    <h4 style="margin:6px 0">Project One</h4>
+                    <p style="margin:0;color:var(--muted);font-size:14px">A short description of the project — what
+                        problem it solves and the tech used.</p>
+                    <div class="meta" style="margin-top:8px">
+                        <div style="font-size:13px;color:var(--muted)">HTML • CSS • JS</div>
+                        <div style="display:flex;gap:8px">
+                            <a class="btn" href="#" target="_blank" rel="noopener">Live</a>
+                            <a class="btn" href="#" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&q=60&w=1200&fit=crop"
+                        alt="Project screenshot">
+                    <h4 style="margin:6px 0">Project Two</h4>
+                    <p style="margin:0;color:var(--muted);font-size:14px">A short description of the project —
+                        mobile-first web app or interactive UI.</p>
+                    <div class="meta" style="margin-top:8px">
+                        <div style="font-size:13px;color:var(--muted)">React • CSS</div>
+                        <div style="display:flex;gap:8px">
+                            <a class="btn" href="#" target="_blank" rel="noopener">Live</a>
+                            <a class="btn" href="#" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&q=60&w=1200&fit=crop"
+                        alt="Project screenshot">
+                    <h4 style="margin:6px 0">Project Three</h4>
+                    <p style="margin:0;color:var(--muted);font-size:14px">A short description of the project — data
+                        visualizations, dashboards, or games.</p>
+                    <div class="meta" style="margin-top:8px">
+                        <div style="font-size:13px;color:var(--muted)">D3 • JS</div>
+                        <div style="display:flex;gap:8px">
+                            <a class="btn" href="#" target="_blank" rel="noopener">Live</a>
+                            <a class="btn" href="#" target="_blank" rel="noopener">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div style="margin-top:14px;display:flex;justify-content:center">
+                <a class="btn" href="#" style="padding:10px 16px">See all projects</a>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="card fade-in">
+            <h3 style="margin-top:0">Skills</h3>
+            <div class="skills-grid">
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center"><strong>HTML &amp;
+                            Accessibility</strong><span style="font-size:13px;color:var(--muted)">95%</span></div>
+                    <div class="bar"><i style="width:95%"></i></div>
+                </div>
+
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center"><strong>CSS (Flexbox &
+                            Grid)</strong><span style="font-size:13px;color:var(--muted)">90%</span></div>
+                    <div class="bar"><i style="width:90%"></i></div>
+                </div>
+
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <strong>JavaScript</strong><span style="font-size:13px;color:var(--muted)">85%</span>
+                    </div>
+                    <div class="bar"><i style="width:85%"></i></div>
+                </div>
+
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <strong>React</strong><span style="font-size:13px;color:var(--muted)">70%</span>
+                    </div>
+                    <div class="bar"><i style="width:70%"></i></div>
+                </div>
+
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center"><strong>UI /
+                            Interaction</strong><span style="font-size:13px;color:var(--muted)">80%</span></div>
+                    <div class="bar"><i style="width:80%"></i></div>
+                </div>
+
+                <div class="skill">
+                    <div style="display:flex;justify-content:space-between;align-items:center"><strong>Tools (Git,
+                            CLI)</strong><span style="font-size:13px;color:var(--muted)">75%</span></div>
+                    <div class="bar"><i style="width:75%"></i></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="card fade-in">
+            <h3 style="margin-top:0">Contact</h3>
+            <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
+                <div>
+                    <!-- Contact Form -->
+                    <form id="contactForm">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+
+                    <p id="statusMessage"></p>
+
+                    <script>
+                        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+                            e.preventDefault();
+
+                            const name = this.name.value;
+                            const email = this.email.value;
+                            const message = this.message.value;
+
+                            try {
+                                const res = await fetch('/api/sendEmail', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ name, email, message })
+                                });
+
+                                if (res.ok) {
+                                    document.getElementById('statusMessage').innerText = '✅ Message sent successfully!';
+                                    this.reset();
+                                } else {
+                                    document.getElementById('statusMessage').innerText = '❌ Failed to send message.';
+                                }
+                            } catch (err) {
+                                document.getElementById('statusMessage').innerText = '❌ Error sending message.';
+                            }
+                        });
+                    </script>
+
+                </div>
+                <div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div style="font-weight:700">Say hello</div>
+                        <div style="color:var(--muted)">Email: <a
+                                href="mailto:steph.haddad16@gmail.com">steph.haddad16@gmail.com</a></div>
+                        <div style="color:var(--muted)">LinkedIn: <a href="#">your-profile</a></div>
+                        <div style="color:var(--muted)">GitHub: <a href="#">github.com/yourusername</a></div>
+
+                        <div style="margin-top:12px">
+                            <strong style="display:block;margin-bottom:6px">Availability</strong>
+                            <div style="color:var(--muted);font-size:13px">Open to freelance & remote opportunities.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div>© <span id="year"></span> Stephanie • Built with ❤️ using HTML, CSS & JavaScript</div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JS for interactivity: theme toggle, mobile menu, form handling
+        (function () {
+            const root = document.documentElement;
+            const themeToggle = document.getElementById('themeToggle');
+            const menuBtn = document.getElementById('menuButton');
+            const nav = document.querySelector('nav');
+            const yearEl = document.getElementById('year');
+            yearEl.textContent = new Date().getFullYear();
+
+            // Initialize theme from localStorage or system preference
+            const stored = localStorage.getItem('theme');
+            if (stored === 'light') root.classList.add('light');
+            else if (!stored) {
+                // prefer dark by default unless user prefers light
+                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+                if (prefersLight) root.classList.add('light');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (root.classList.contains('light')) {
+                    root.classList.remove('light');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    root.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // mobile nav toggle
+            menuBtn.addEventListener('click', () => {
+                const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                menuBtn.setAttribute('aria-expanded', String(!expanded));
+                if (nav.style.display === 'flex') nav.style.display = '';
+                else nav.style.display = 'flex';
+                nav.style.flexDirection = 'column';
+            });
+
+            // Smooth scroll offset helper for anchors (if sticky header present)
+            function offsetScroll(hash) {
+                if (!hash) return;
+                const el = document.querySelector(hash);
+                if (!el) return;
+                const y = el.getBoundingClientRect().top + window.pageYOffset - 18; // small offset
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+            // intercept anchor links in-page
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    const href = a.getAttribute('href');
+                    if (href.length > 1) {
+                        e.preventDefault();
+                        offsetScroll(href);
+                    }
+                })
+            })
+
+            // Simple form handler (no backend) — replace with an API or EmailJS as needed
+            const form = document.getElementById('contactForm');
+            const status = document.getElementById('formStatus');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const data = new FormData(form);
+                const name = data.get('name');
+                const email = data.get('email');
+                const message = data.get('message');
+                // Basic front-end validation
+                if (!name || !email || !message) {
+                    status.textContent = 'Please fill all fields.';
+                    return;
+                }
+                // This demo doesn't send — we simulate success. Wire up to a real endpoint.
+                status.style.color = 'var(--accent)';
+                status.textContent = 'Thanks — message simulated as sent (demo).';
+                form.reset();
+                setTimeout(() => status.textContent = '', 4000);
+            });
+
+            // small entrance animations for visible cards
+            document.querySelectorAll('.fade-in').forEach((el, i) => el.style.animationDelay = (i * 80) + 'ms');
+
+            // Accessible keyboard help: allow Esc to close mobile nav
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    nav.style.display = '';
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+        })();
+    </script>
+</body>
+
+</html>
